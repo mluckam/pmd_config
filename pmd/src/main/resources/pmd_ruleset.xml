@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<ruleset name="PMD ruleset"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>Customized set of rules</description>
+
+    <!-- reference to PMD built in rulesets with specific rules removed -->
+    <rule ref="category/java/bestpractices.xml" />
+    <rule ref="category/java/design.xml">
+        <!-- To difficult to always enforce -->
+        <exclude name="LawOfDemeter" />
+        <!-- Maximum 12 lines per method is to short -->
+        <exclude name="NcssCount" />
+        <!-- DAOs are reuquired -->
+        <exclude name="DataClass" />
+        <exclude name="TooManyMethods" />
+        <exclude name="TooManyFields" />
+        <exclude name="LoosePackageCoupling" />
+    </rule>
+    <rule ref="category/java/errorprone.xml">
+        <!-- It is unnecessary for all classes that reference a bean to be 
+            serializable -->
+        <exclude name="BeanMembersShouldSerialize" />
+        <exclude name="AvoidFieldNameMatchingMethodName" />
+    </rule>
+    <!-- DU anomolies are too often false positives and stated so in PMD 
+        documentation "These anomalies may appear in normal source" https://pmd.github.io/pmd-6.5.0/pmd_rules_java_errorprone.html#dataflowanomalyanalysis -->
+    <rule
+        ref="category/java/errorprone.xml/DataflowAnomalyAnalysis">
+        <properties>
+            <property name="violationSuppressRegex"
+                value="^Found 'DU'-anomaly.*" />
+        </properties>
+    </rule>
+    <rule ref="category/java/multithreading.xml">
+        <!-- This application is not a webserver -->
+        <exclude name="DoNotUseThreads" />
+    </rule>
+    <rule ref="category/java/performance.xml" />
+    <rule ref="category/java/security.xml" />
+</ruleset>
