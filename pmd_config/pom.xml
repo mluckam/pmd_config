@@ -10,5 +10,5 @@
         <relativePath>../parent</relativePath>
     </parent>
 
-        <artifactId>pmd</artifactId>
+        <artifactId>pmd_config</artifactId>
 </project>
